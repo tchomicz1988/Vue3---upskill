@@ -1,0 +1,22 @@
+{
+  "questions": [
+    {
+      "id": "9bdf5b8a-58bc-11ec-bf63-0242ac130002",
+      "question": "Junior frontend first question",
+      "type": "frontend",
+      "level": "junior"
+    },
+    {
+      "id": "9bdf5de2-58bc-11ec-bf63-0242ac130002",
+      "question": "Middle  frontend first question",
+      "type": "frontend",
+      "level": "middle"
+    },
+    {
+      "id": "9bdf624c-58bc-11ec-bf63-0242ac130002",
+      "question": "Senior  frontend first question",
+      "type": "frontend",
+      "level": "senior"
+    }
+  ]
+}
