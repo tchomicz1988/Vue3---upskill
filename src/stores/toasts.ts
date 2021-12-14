@@ -19,7 +19,6 @@ export const useToastStore = defineStore({
   }),
   actions: {
     showToast(type: string, msg?: string, time: number = 2000 ) {
-      console.log(type)
       this.props = {
         show: true,
         type,

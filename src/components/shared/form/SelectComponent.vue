@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { SelectOption } from '@/interfaces/form.interfaces';
-import { watch } from 'vue';
 
 const props = defineProps<{
   options: SelectOption;
@@ -12,9 +11,6 @@ const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: string | number): void
 }>()
 
-watch(props, (value) => {
-  console.log(value)
-})
 </script>
 
 <template>
