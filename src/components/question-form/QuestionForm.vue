@@ -12,20 +12,24 @@ import { FILTERS_LEVEL_OPTIONS, FILTERS_TYPE_OPTIONS } from '@/components/filter
 import { useToastStore } from '@/stores/toasts';
 import useVuelidate, { Validation } from '@vuelidate/core'
 import { required, maxLength } from '@vuelidate/validators'
-import { add } from '@/services/ApiService';
+import { add, update } from '@/services/ApiService';
 import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/QuestionsList.constants';
 import { AxiosResponse } from 'axios';
 import router from '@/router';
 
-const form = reactive<Partial<Question>>({...QUESTION_FORM_VALUES});
+const props = defineProps<{
+  form?: Question;
+}>();
+
+const editMode = !!props.form;
+const form = reactive<Partial<Question>>({...(editMode ? props.form : QUESTION_FORM_VALUES)});
 const levelOptions: SelectOption[] = enumToOptions(FILTERS_LEVEL_OPTIONS, true);
 const typeOptions: SelectOption[] = enumToOptions(FILTERS_TYPE_OPTIONS, true);
 const toastStore = useToastStore();
-
 const rules = {
-  question: { maxLength: maxLength(255), required, $autoDirty: true},
-  type: { required, $autoDirty: true},
-  level: { required, $autoDirty: true },
+  question: {maxLength: maxLength(255), required, $autoDirty: true},
+  type: {required, $autoDirty: true},
+  level: {required, $autoDirty: true},
 }
 
 const $v: Ref<Validation> = useVuelidate(rules, form)
@@ -36,6 +40,24 @@ async function send() {
     return
   }
 
+  editMode ? editQuestion() : addQuestion();
+
+}
+
+function editQuestion() {
+  update(QUESTIONS_ENDPOINTS.EDIT(form.id), form).then((response: AxiosResponse) => {
+    if(!response) {
+      return
+    }
+
+    toastStore.showToast('success', 'Question was updated');
+
+    router.push({name: 'home'})
+
+  });
+}
+
+function addQuestion() {
   add(QUESTIONS_ENDPOINTS.ADD(), form).then((response: AxiosResponse) => {
     if(!response) {
       return
@@ -53,20 +75,23 @@ async function send() {
 
   <form class="QuestionForm" @submit.prevent="send">
     <LabelComponent label="Question" :required="true">
-      <InputComponent v-model="form.question" @blur="$v.question.$touch"/>
-      <ErrorMessage :message="$v.question.$errors[0]?.$message" />
+      <InputComponent type="text" v-model="form.question" @blur="$v.question.$touch"/>
+      <ErrorMessage :message="$v.question.$errors[0]?.$message"/>
     </LabelComponent>
     <div class="QuestionForm-col2">
-      <LabelComponent label="Level" :required="true" >
+      <LabelComponent label="Level" :required="true">
         <SelectComponent v-model="form.level" :options="levelOptions" @blur="$v.level.$touch"/>
-        <ErrorMessage :message="$v.level.$errors[0]?.$message" />
+        <ErrorMessage :message="$v.level.$errors[0]?.$message"/>
       </LabelComponent>
       <LabelComponent label="Level" :required="true">
         <SelectComponent v-model="form.type" :options="typeOptions" @blur="$v.type.$touch"/>
-        <ErrorMessage :message="$v.type.$errors[0]?.$message" />
+        <ErrorMessage :message="$v.type.$errors[0]?.$message"/>
       </LabelComponent>
     </div>
-    <button type="submit" :disabled="$v.$invalid" @submit.prevent="send">Add Question</button>
+    <button type="submit"
+            :disabled="$v.$invalid || !$v.$anyDirty"
+            @submit.prevent="send">
+      {{editMode? 'Update Question' : 'Add Question'}}</button>
   </form>
 
 </template>

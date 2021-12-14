@@ -1,12 +1,6 @@
 {
   "questions": [
     {
-      "id": "9bdf5b8a-58bc-11ec-bf63-0242ac130002",
-      "question": "Junior frontend first question",
-      "type": "frontend",
-      "level": "junior"
-    },
-    {
       "id": "9bdf5de2-58bc-11ec-bf63-0242ac130002",
       "question": "Middle  frontend first question",
       "type": "frontend",
@@ -21,32 +15,14 @@
     {
       "question": "Question",
       "type": "frontend",
-      "level": "junior",
+      "level": "senior",
       "id": "F7Rbxx9"
-    },
-    {
-      "question": null,
-      "type": null,
-      "level": "middle",
-      "id": "RotDAtV"
     },
     {
       "question": "Question valida",
       "type": "frontend",
       "level": "junior",
       "id": "a9moTLP"
-    },
-    {
-      "question": "question",
-      "type": "frontend",
-      "level": "junior",
-      "id": "vySmBsi"
-    },
-    {
-      "question": "Qeust",
-      "type": "frontend",
-      "level": "senior",
-      "id": "oB4QzRJ"
     }
   ]
 }

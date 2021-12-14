@@ -1,10 +1,15 @@
 <script setup lang="ts">
 
 import { Question } from '@/interfaces/question.interface';
+import router from '@/router';
 
 const props = defineProps<{
   questions?: Question[];
 }>();
+
+function editQuestion(id: string){
+  router.push({name: 'edit', params: { id }})
+}
 </script>
 
 <template>
@@ -14,18 +19,16 @@ const props = defineProps<{
       <th class="querstionTable__cel--th">Question</th>
       <th class="querstionTable__cel--th">Type</th>
       <th class="querstionTable__cel--th">Level</th>
-      <th class="querstionTable__cel--th">Action</th>
     </tr>
     <tr
       v-for="(question, index) in questions"
       :key="question.id"
-      class="querstionTable__row"
-    >
+      @click="editQuestion(question.id)"
+      class="querstionTable__row">
       <td class="querstionTable__cel">{{ index + 1 }}</td>
       <td class="querstionTable__cel">{{ question.question }}</td>
       <td class="querstionTable__cel">{{ question.type }}</td>
       <td class="querstionTable__cel">{{ question.level }}</td>
-      <td class="querstionTable__cel">Button</td>
     </tr>
   </table>
 </template>
