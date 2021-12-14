@@ -17,6 +17,36 @@
       "question": "Senior  frontend first question",
       "type": "frontend",
       "level": "senior"
+    },
+    {
+      "question": "Question",
+      "type": "frontend",
+      "level": "junior",
+      "id": "F7Rbxx9"
+    },
+    {
+      "question": null,
+      "type": null,
+      "level": "middle",
+      "id": "RotDAtV"
+    },
+    {
+      "question": "Question valida",
+      "type": "frontend",
+      "level": "junior",
+      "id": "a9moTLP"
+    },
+    {
+      "question": "question",
+      "type": "frontend",
+      "level": "junior",
+      "id": "vySmBsi"
+    },
+    {
+      "question": "Qeust",
+      "type": "frontend",
+      "level": "senior",
+      "id": "oB4QzRJ"
     }
   ]
 }

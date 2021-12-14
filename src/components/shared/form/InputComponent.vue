@@ -1,0 +1,27 @@
+<script setup lang="ts">
+const props = withDefaults(defineProps<{
+  type: string;
+  modelValue: string | number
+}>(), {
+  type: 'text',
+  modelValue: ''
+})
+
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', modelValue: string | number): void
+}>()
+
+</script>
+
+<template>
+<input :class="'Input-' + type"
+       :type="type"
+       :modelValue="modelValue"
+       @change="emit('update:modelValue', $event.target.value)"/>
+</template>
+
+<style scoped>
+
+</style>
+

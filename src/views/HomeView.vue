@@ -29,7 +29,7 @@ function updateList(formData? : any) {
   <h1>Questions List</h1>
   <main>
     <div class="HomeView-filters">
-      <Filters v-on:form="updateList"/>
+      <Filters @form="updateList"/>
     </div>
     <div class="HomeView-list">
       <QuestionsList :questions="questions" />

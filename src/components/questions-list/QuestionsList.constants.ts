@@ -1,4 +1,5 @@
 export const QUESTIONS_ENDPOINTS = {
-    ALL: () => `api/questions`
+    ALL: () => `api/questions`,
+    ADD: () => `api/questions`
     
 }

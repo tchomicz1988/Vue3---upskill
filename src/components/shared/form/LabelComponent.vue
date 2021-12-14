@@ -7,7 +7,7 @@ defineProps<{
 
 <template>
   <div class="Label">
-    <label :required="required">{{label}}</label>
+    <label> <i class="Label-icon" v-if="required"> * </i> {{label}}</label>
     <slot></slot>
   </div>
 
@@ -18,5 +18,9 @@ defineProps<{
   display: flex;
   flex-direction: column;
   position: relative;
+}
+
+.Label-icon{
+  color: var(--color-orange);
 }
 </style>
