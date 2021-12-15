@@ -35,7 +35,7 @@ function clearForm() {
 
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .Filters {
   float: right;
   display: grid;
@@ -43,6 +43,5 @@ function clearForm() {
   align-items: end;
   column-gap: 0.4rem
 }
-
 
 </style>

@@ -3,7 +3,7 @@ import QuestionsList from "@/components/questions-list/QuestionsList.vue";
 import { useQuestions } from "@/components/questions-list/useQuestions";
 import Filters from "@/components/filters/Filters.vue";
 import { feach } from '@/services/ApiService';
-import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/QuestionsList.constants';
+import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
 import { identity, pickBy } from 'lodash';
 
 const questions = useQuestions().questions;

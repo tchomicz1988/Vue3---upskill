@@ -10,10 +10,10 @@ import { SelectOption } from '@/interfaces/form.interfaces';
 import { enumToOptions } from '@/utils/form.utils';
 import { FILTERS_LEVEL_OPTIONS, FILTERS_TYPE_OPTIONS } from '@/components/filters/filters.model';
 import { useToastStore } from '@/stores/toasts';
-import useVuelidate, { Validation } from '@vuelidate/core'
+import useVuelidate, { Validation, ValidationArgs } from '@vuelidate/core'
 import { required, maxLength } from '@vuelidate/validators'
 import { add, update } from '@/services/ApiService';
-import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/QuestionsList.constants';
+import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
 import { AxiosResponse } from 'axios';
 import router from '@/router';
 
@@ -21,18 +21,18 @@ const props = defineProps<{
   form?: Question;
 }>();
 
-const editMode = !!props.form;
+const editMode: boolean = !!props.form;
 const form = reactive<Partial<Question>>({...(editMode ? props.form : QUESTION_FORM_VALUES)});
 const levelOptions: SelectOption[] = enumToOptions(FILTERS_LEVEL_OPTIONS, true);
 const typeOptions: SelectOption[] = enumToOptions(FILTERS_TYPE_OPTIONS, true);
 const toastStore = useToastStore();
-const rules = {
-  question: {maxLength: maxLength(255), required, $autoDirty: true},
-  type: {required, $autoDirty: true},
-  level: {required, $autoDirty: true},
+const rules: ValidationArgs = {
+  question: {maxLength: maxLength(255), required},
+  type: {required},
+  level: {required},
 }
 
-const $v: Ref<Validation> = useVuelidate(rules, form)
+const $v: Ref<Validation> = useVuelidate(rules, form, {$autoDirty: true})
 
 async function send() {
   const valid = await $v.value.$validate()
@@ -41,19 +41,20 @@ async function send() {
   }
 
   editMode ? editQuestion() : addQuestion();
-
 }
 
 function editQuestion() {
+  if(!form.id) {
+    return;
+  }
+
   update(QUESTIONS_ENDPOINTS.EDIT(form.id), form).then((response: AxiosResponse) => {
     if(!response) {
       return
     }
 
     toastStore.showToast('success', 'Question was updated');
-
     router.push({name: 'home'})
-
   });
 }
 
@@ -65,14 +66,11 @@ function addQuestion() {
 
     toastStore.showToast('success', 'Question was added');
     router.push({name: 'home'})
-
   });
 }
-
 </script>
 
 <template>
-
   <form class="QuestionForm" @submit.prevent="send">
     <LabelComponent label="Question" :required="true">
       <InputComponent type="text" v-model="form.question" @blur="$v.question.$touch"/>
@@ -91,13 +89,13 @@ function addQuestion() {
     <button type="submit"
             :disabled="$v.$invalid || !$v.$anyDirty"
             @submit.prevent="send">
-      {{editMode? 'Update Question' : 'Add Question'}}</button>
+      {{ editMode ? 'Update Question' : 'Add Question' }}
+    </button>
   </form>
-
 </template>
 
 
-<style scoped>
+<style scoped lang="scss">
 .QuestionForm {
   margin: auto;
   width: 600px;

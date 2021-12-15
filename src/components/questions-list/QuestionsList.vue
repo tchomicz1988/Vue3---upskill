@@ -1,9 +1,7 @@
 <script setup lang="ts">
-
 import { Question } from '@/interfaces/question.interface';
 import router from '@/router';
-
-const props = defineProps<{
+defineProps<{
   questions?: Question[];
 }>();
 
@@ -13,40 +11,44 @@ function editQuestion(id: string){
 </script>
 
 <template>
-  <table class="querstionTable">
-    <tr class="querstionTable__row">
-      <th class="querstionTable__cel--th">Lp.</th>
-      <th class="querstionTable__cel--th">Question</th>
-      <th class="querstionTable__cel--th">Type</th>
-      <th class="querstionTable__cel--th">Level</th>
+  <table class="QuestionTable">
+    <tr>
+      <th class="QuestionTable-cel--th">Lp.</th>
+      <th class="QuestionTable-cel--th">Question</th>
+      <th class="QuestionTable-cel--th">Type</th>
+      <th class="QuestionTable-cel--th">Level</th>
     </tr>
     <tr
       v-for="(question, index) in questions"
       :key="question.id"
       @click="editQuestion(question.id)"
-      class="querstionTable__row">
-      <td class="querstionTable__cel">{{ index + 1 }}</td>
-      <td class="querstionTable__cel">{{ question.question }}</td>
-      <td class="querstionTable__cel">{{ question.type }}</td>
-      <td class="querstionTable__cel">{{ question.level }}</td>
+      class="QuestionTable-row">
+      <td class="QuestionTable-cel">{{ index + 1 }}</td>
+      <td class="QuestionTable-cel">{{ question.question }}</td>
+      <td class="QuestionTable-cel">{{ question.type }}</td>
+      <td class="QuestionTable-cel">{{ question.level }}</td>
     </tr>
   </table>
 </template>
 
-<style scoped>
-.querstionTable {
+<style scoped lang="scss">
+.QuestionTable {
   width: 100%;
   border-spacing: 0;
 }
 
-.querstionTable__cel--th,
-.querstionTable__cel {
+.QuestionTable-row{
+  cursor: pointer;
+}
+
+.QuestionTable-cel--th,
+.QuestionTable-cel {
   border-bottom: solid 1px var(--color-border);
   height: 4rem;
   text-align: center;
 }
 
-.querstionTable__cel--th {
+.QuestionTable-cel--th {
   background: var(--color-border);
 }
 </style>

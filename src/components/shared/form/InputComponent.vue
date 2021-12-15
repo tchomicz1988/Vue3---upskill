@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   type: string;
   modelValue: string | number
 }>(), {
@@ -21,8 +21,4 @@ const emit = defineEmits<{
        :value="modelValue"
        @change="emit('update:modelValue', $event.target.value)"/>
 </template>
-
-<style scoped>
-
-</style>
 
