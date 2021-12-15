@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { useLoaderStore } from "@/stores/loader";
 import { useToastStore } from '@/stores/toasts';
 
-export function feach(url: string, config?: AxiosRequestConfig): Promise<any>{
+export function fetch(url: string, config?: AxiosRequestConfig): Promise<any>{
     const loaderStore = useLoaderStore();
     const toastStore = useToastStore();
     loaderStore.loading = true;
