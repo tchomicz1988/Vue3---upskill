@@ -2,7 +2,7 @@
 import QuestionsList from "@/components/questions-list/QuestionsList.vue";
 import { useQuestions } from "@/components/questions-list/useQuestions";
 import Filters from "@/components/filters/Filters.vue";
-import { feach } from '@/services/ApiService';
+import { fetch } from '@/services/ApiService';
 import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
 import { identity, pickBy } from 'lodash';
 
@@ -16,11 +16,10 @@ function updateList(formData? : any) {
     level: formData?.level,
   }
 
-  feach(QUESTIONS_ENDPOINTS.ALL(), {
+  fetch(QUESTIONS_ENDPOINTS.ALL(), {
     params:  pickBy( params, identity),
   }).then((response: { data: any }) => {
     questions.value = response.data;
-
   });
 }
 </script>
