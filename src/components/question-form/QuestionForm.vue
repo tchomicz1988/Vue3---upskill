@@ -1,94 +1,78 @@
 <script setup lang="ts">
-import LabelComponent from '@/components/shared/form/LabelComponent.vue';
-import InputComponent from '@/components/shared/form/InputComponent.vue';
-import ErrorMessage from '@/components/shared/form/ErrorMessage.vue';
-import { reactive, Ref } from 'vue';
+import FormLabel from '@/components/form/FormLabel.vue';
+import FormInput from '@/components/form/FormInput.vue';
+import FormError from '@/components/form/FormError.vue';
+import { defineEmits, Ref } from 'vue';
 import { Question } from '@/interfaces/question.interface';
-import { QUESTION_FORM_VALUES } from './questionForm.model';
-import SelectComponent from '@/components/shared/form/SelectComponent.vue';
+import FormSelect from '@/components/form/FormSelect.vue';
 import { SelectOption } from '@/interfaces/form.interfaces';
 import { enumToOptions } from '@/utils/form.utils';
-import { FILTERS_LEVEL_OPTIONS, FILTERS_TYPE_OPTIONS } from '@/components/filters/filters.model';
-import { useToastStore } from '@/stores/toasts';
+import { FILTERS_LEVEL_OPTIONS, FILTERS_TYPE_OPTIONS } from '@/components/questions-filters/questions-filters.model';
 import useVuelidate, { Validation, ValidationArgs } from '@vuelidate/core'
 import { required, maxLength } from '@vuelidate/validators'
-import { add, update } from '@/services/ApiService';
-import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
-import { AxiosResponse } from 'axios';
-import router from '@/router';
+
 
 const props = defineProps<{
-  form?: Question;
+  form: Partial<Question>;
 }>();
 
-const editMode: boolean = !!props.form;
-const form = reactive<Partial<Question>>({...(editMode ? props.form : QUESTION_FORM_VALUES)});
+
+const emit = defineEmits<{
+  (e: 'submit', form: Partial<Question>): void
+}>()
+
+const editMode: boolean = props.form?.id;
 const levelOptions: SelectOption[] = enumToOptions(FILTERS_LEVEL_OPTIONS, true);
 const typeOptions: SelectOption[] = enumToOptions(FILTERS_TYPE_OPTIONS, true);
-const toastStore = useToastStore();
+
 const rules: ValidationArgs = {
   question: {maxLength: maxLength(255), required},
   type: {required},
   level: {required},
 }
 
-const $v: Ref<Validation> = useVuelidate(rules, form, {$autoDirty: true})
+const $v: Ref<Validation> = useVuelidate(rules, props.form, {$autoDirty: true})
 
-async function send() {
+async function submit() {
   const valid = await $v.value.$validate()
   if(!valid) {
     return
   }
 
-  editMode ? editQuestion() : addQuestion();
+  emit('submit', props.form);
 }
 
-function editQuestion() {
-  if(!form.id) {
-    return;
-  }
-
-  update(QUESTIONS_ENDPOINTS.EDIT(form.id), form).then((response: AxiosResponse) => {
-    if(!response) {
-      return
-    }
-
-    toastStore.showToast('success', 'Question was updated');
-    router.push({name: 'home'})
-  });
-}
-
-function addQuestion() {
-  add(QUESTIONS_ENDPOINTS.ADD(), form).then((response: AxiosResponse) => {
-    if(!response) {
-      return
-    }
-
-    toastStore.showToast('success', 'Question was added');
-    router.push({name: 'home'})
-  });
-}
 </script>
 
 <template>
-  <form class="QuestionForm" @submit.prevent="send">
-    <LabelComponent label="Question" :required="true">
-      <InputComponent type="text" v-model="form.question" @blur="$v.question.$touch"/>
-      <ErrorMessage :message="$v.question.$errors[0]?.$message"/>
-    </LabelComponent>
+  <form class="QuestionForm"
+        @submit.prevent="submit">
+    <FormLabel label="Question"
+               :required="true">
+      <FormInput type="text"
+                 v-model="form.question"
+                 @blur="$v.question.$touch"/>
+      <FormError :message="$v.question.$errors[0]?.$message"/>
+    </FormLabel>
     <div class="QuestionForm-col2">
-      <LabelComponent label="Level" :required="true">
-        <SelectComponent v-model="form.level" :options="levelOptions" @blur="$v.level.$touch"/>
-        <ErrorMessage :message="$v.level.$errors[0]?.$message"/>
-      </LabelComponent>
-      <LabelComponent label="Level" :required="true">
-        <SelectComponent v-model="form.type" :options="typeOptions" @blur="$v.type.$touch"/>
-        <ErrorMessage :message="$v.type.$errors[0]?.$message"/>
-      </LabelComponent>
+      <FormLabel label="Level"
+                 :required="true">
+        <FormSelect v-model="form.level"
+                    :options="levelOptions"
+                    @blur="$v.level.$touch"/>
+        <FormError :message="$v.level.$errors[0]?.$message"/>
+      </FormLabel>
+      <FormLabel label="Level"
+                 :required="true">
+        <FormSelect v-model="form.type"
+                    :options="typeOptions"
+                    @blur="$v.type.$touch"/>
+        <FormError :message="$v.type.$errors[0]?.$message"/>
+      </FormLabel>
     </div>
     <button type="submit"
             :disabled="$v.$invalid || !$v.$anyDirty"
-            @submit.prevent="send">
+            @submit.prevent="submit">
       {{ editMode ? 'Update Question' : 'Add Question' }}
     </button>
   </form>

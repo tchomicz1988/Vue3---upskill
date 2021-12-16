@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import Header from "@/components/header/Header.vue";
-import Loader from "./components/loader/Loader.vue";
-import ToastMessage from '@/components/shared/ToastMessage.vue';
+import TheHeader from "@/components/header/TheHeader.vue";
+import TheLoader from "./components/loader/TheLoader.vue";
+import TheToastMessage from '@/components/toast-message/TheToastMessage.vue';
 </script>
 
 <template>
-  <Header />
-  <ToastMessage />
-  <Loader />
+  <TheHeader />
+  <TheToastMessage />
+  <TheLoader />
   <router-view />
 </template>
 

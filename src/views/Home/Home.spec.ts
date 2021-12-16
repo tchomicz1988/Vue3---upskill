@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import HomeView from './HomeView.vue'
+import Home from './Home.vue'
 import { ref } from 'vue';
 import { createTestingPinia } from '@pinia/testing';
 import { fetch } from '@/services/ApiService';
@@ -7,12 +7,12 @@ import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.c
 
 jest.mock('@/services/ApiService', ()=>({ fetch: jest.fn().mockReturnValue(Promise.resolve({data: []})) }));
 
-describe('HomeView', () => {
+describe('Home', () => {
   const useQuestions = jest.fn().mockReturnValue({questions: ref([])});
-  const questions = useQuestions().questions;
+  const { questions } = useQuestions();
 
   const msg = 'Questions List'
-  const wrapper = mount(HomeView, {
+  const wrapper = mount(Home, {
     global: {
       plugins: [createTestingPinia()],
     },

@@ -1,6 +1,6 @@
 import { defineStore, StoreDefinition } from 'pinia'
 
-interface ToastStoreState {
+export interface ToastStoreState {
   show: boolean,
   type: null | string,
   msg: null | string
@@ -12,7 +12,7 @@ const initState: ToastStoreState = {
   msg: null
 }
 
-export const useToastStore: StoreDefinition = defineStore({
+export const useToastStore: StoreDefinition<string, { props: ToastStoreState}> = defineStore({
   id: 'toast',
   state: () => ({
     props: {...initState}

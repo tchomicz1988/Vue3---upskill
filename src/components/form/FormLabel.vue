@@ -7,7 +7,9 @@ defineProps<{
 
 <template>
   <div class="Label">
-    <label> <i class="Label-icon" v-if="required"> * </i> {{label}}</label>
+    <label>
+      <i class="Label-icon"
+         v-if="required"> * </i> {{label}}</label>
     <slot></slot>
   </div>
 

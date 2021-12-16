@@ -10,7 +10,8 @@ module.exports = {
     '^.+\\.vue$': 'vue-jest'
   },
   moduleNameMapper: {
-    '@/(.*)': '<rootDir>/src/$1'
+    '@/(.*)': '<rootDir>/src/$1',
+    "^lodash-es$": "lodash"
   },
   moduleDirectories: ['node_modules', 'src'],
 }

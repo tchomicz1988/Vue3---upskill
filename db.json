@@ -2,9 +2,9 @@
   "questions": [
     {
       "id": "9bdf5de2-58bc-11ec-bf63-0242ac130002",
-      "question": "Middle  frontend first question",
+      "question": "sasssss",
       "type": "frontend",
-      "level": "middle"
+      "level": "senior"
     },
     {
       "id": "9bdf624c-58bc-11ec-bf63-0242ac130002",
@@ -23,6 +23,40 @@
       "type": "frontend",
       "level": "junior",
       "id": "a9moTLP"
+    },
+    {
+      "isTrusted": true,
+      "id": "Dg2fddZ"
+    },
+    {
+      "question": "s",
+      "type": "frontend",
+      "level": "junior",
+      "id": "7zFngol"
+    },
+    {
+      "question": "ssd",
+      "type": "frontend",
+      "level": "junior",
+      "id": "C7yCePw"
+    },
+    {
+      "question": "bv",
+      "type": "frontend",
+      "level": "junior",
+      "id": "VLMHO6p"
+    },
+    {
+      "question": "cc",
+      "type": "frontend",
+      "level": "junior",
+      "id": "ifxsIU2"
+    },
+    {
+      "question": "sss",
+      "type": "frontend",
+      "level": "junior",
+      "id": "_pDrR6v"
     }
   ]
 }

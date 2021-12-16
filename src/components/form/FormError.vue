@@ -5,10 +5,10 @@ defineProps<{
 
 </script>
 <template>
-  <span class="ErrorMessage">{{ message }}</span>
+  <span class="FormError">{{ message }}</span>
 </template>
 <style scoped>
-.ErrorMessage {
+.FormError {
   color: #ff1616;
 }
 </style>

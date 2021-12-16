@@ -8,7 +8,8 @@ const loading = computed(() => loaderStore.loading);
 </script>
 
 <template>
-  <div v-if="loading" class="LoaderOverlay">
+  <div v-if="loading"
+       class="LoaderOverlay">
     <div class="Loader">Loading...</div>
   </div>
 </template>

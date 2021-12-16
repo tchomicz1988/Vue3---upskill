@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useToastStore } from '@/stores/toasts';
+import { ToastStoreState, useToastStore } from '@/stores/toasts';
 import { computed } from 'vue';
+
 
 const defaultMsg = {
   error: 'Something went wrong, please try again',
@@ -9,11 +10,12 @@ const defaultMsg = {
 }
 
 const toastStore = useToastStore();
-const props = computed(() => toastStore.props)
+const props: ToastStoreState = computed(() => toastStore.props)
 </script>
 
 <template>
-  <div v-if="props.show" :class="`ToastMessage ToastMessage--${props.type}`">{{ props.msg || defaultMsg[props.type]}}</div>
+  <div v-if="props.show"
+       :class="`ToastMessage ToastMessage--${props.type}`">{{ props.msg || defaultMsg[props.type]}}</div>
 </template>
 
 

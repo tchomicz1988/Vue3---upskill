@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import QuestionsList from "@/components/questions-list/QuestionsList.vue";
+import TheQuestionsList from "@/components/questions-list/TheQuestionsList.vue";
 import { useQuestions } from "@/components/questions-list/useQuestions";
-import Filters from "@/components/filters/Filters.vue";
+import TheQuestionsFilters from "@/components/questions-filters/TheQuestionsFilters.vue";
 import { fetch } from '@/services/ApiService';
 import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
-import { identity, pickBy } from 'lodash';
+import { Question } from '@/interfaces/question.interface';
+import { identity, pickBy } from 'lodash-es';
 
-const questions = useQuestions().questions;
+const  { questions } = useQuestions();
+
 updateList();
 
-function updateList(formData? : any) {
+function updateList(formData? : Partial<Question>) {
   const params = {
     question_like: formData?.question,
     type: formData?.type,
@@ -27,21 +29,21 @@ function updateList(formData? : any) {
 <template>
   <h1>Questions List</h1>
   <main>
-    <div class="HomeView-filters">
-      <Filters @form="updateList"/>
+    <div class="Home-filters">
+      <TheQuestionsFilters @form="updateList"/>
     </div>
-    <div class="HomeView-list">
-      <QuestionsList :questions="questions" />
+    <div class="Home-list">
+      <TheQuestionsList :questions="questions" />
     </div>
 
   </main>
 </template>
 
 <style lang="scss">
-.HomeView-filters{
+.Home-filters{
   overflow: hidden;
 }
-.HomeView-list {
+.Home-list {
   padding-top: 40px;
   width: 100%;
 }
