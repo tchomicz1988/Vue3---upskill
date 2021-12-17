@@ -21,7 +21,7 @@ const emit = defineEmits<{
   (e: 'submit', form: Partial<Question>): void
 }>()
 
-const editMode: boolean = props.form?.id;
+const editMode: boolean = !!props.form?.id;
 const levelOptions: SelectOption[] = enumToOptions(FILTERS_LEVEL_OPTIONS, true);
 const typeOptions: SelectOption[] = enumToOptions(FILTERS_TYPE_OPTIONS, true);
 
@@ -34,7 +34,9 @@ const rules: ValidationArgs = {
 const $v: Ref<Validation> = useVuelidate(rules, props.form, {$autoDirty: true})
 
 async function submit() {
-  const valid = await $v.value.$validate()
+
+  const valid = await $v.value.$validate();
+
   if(!valid) {
     return
   }
