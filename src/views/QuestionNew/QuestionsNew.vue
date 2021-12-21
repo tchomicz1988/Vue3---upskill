@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import QuestionForm from '@/components/question-form/QuestionForm.vue';
-import { add } from '@/services/ApiService';
-import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
-import { AxiosResponse } from 'axios';
+import QuestionForm from '@/components/QuestionsForm.vue';
 import router from '@/router';
 import { reactive } from 'vue';
-import { Question } from '@/interfaces/question.interface';
-import { QUESTION_FORM_VALUES } from '@/components/question-form/questionForm.constants';
+import { Question } from '@/types/question.interface';
+import { QUESTION_FORM_VALUES } from '@/constants/questionForm.constants';
 import { useToastStore } from '@/stores/toasts';
+import {createQuestion} from "@/services/QuestionsService";
 
 const form = reactive<Partial<Question>>({...QUESTION_FORM_VALUES});
 const toastStore = useToastStore();
 
 function addQuestion(formData: Partial<Question>) {
-  return add(QUESTIONS_ENDPOINTS.ADD(), formData).then((response: AxiosResponse) => {
-    if(!response) {
+  return createQuestion(formData).then((question: Question) => {
+    if(!question) {
       return
     }
 

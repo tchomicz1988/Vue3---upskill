@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import TheHeader from "@/components/header/TheHeader.vue";
-import TheLoader from "./components/loader/TheLoader.vue";
-import TheToastMessage from '@/components/toast-message/TheToastMessage.vue';
+import TheHeader from "@/components/TheHeader/TheHeader.vue";
+import TheLoader from "./components/TheLoader.vue";
+import TheToastMessage from '@/components/ToastMessage.vue';
 </script>
 
 <template>

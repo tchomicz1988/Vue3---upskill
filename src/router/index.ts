@@ -12,12 +12,12 @@ const router = createRouter({
     {
       path: '/add-question',
       name: 'add-question',
-      component: () => import('../views/QuestionNew/QuestionNew.vue')
+      component: () => import('../views/QuestionNew/QuestionsNew.vue')
     },
     {
       path: '/edit/:id',
       name: 'edit',
-      component: () => import('../views/QuestionEdit/QuestionEdit.vue')
+      component: () => import('../views/QuestionsEdit/QuestionsEdit.vue')
     }
   ]
 })

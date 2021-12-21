@@ -1,4 +1,4 @@
-import { SelectOption } from '@/interfaces/form.interfaces';
+import { SelectOption } from '@/types/form.interfaces';
 
 export function enumToOptions(enumToTransform: any, keyAsValue = false): SelectOption[] {
   const options: SelectOption[] = [];

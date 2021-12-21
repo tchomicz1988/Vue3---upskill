@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import QuestionForm from '@/components/question-form/QuestionForm.vue';
+import QuestionForm from '@/components/QuestionsForm.vue';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
-import { Question } from '@/interfaces/question.interface';
+import { Question } from '@/types/question.interface';
 import { fetch, update } from '@/services/ApiService';
-import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
+import { QUESTIONS_ENDPOINTS } from '@/constants/questionsList.constants';
 import { ref } from 'vue';
 import { AxiosResponse } from 'axios';
 import router from '@/router';

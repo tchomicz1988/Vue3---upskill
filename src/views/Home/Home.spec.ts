@@ -3,7 +3,7 @@ import Home from './Home.vue'
 import { ref } from 'vue';
 import { createTestingPinia } from '@pinia/testing';
 import { fetch } from '@/services/ApiService';
-import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
+import { QUESTIONS_ENDPOINTS } from '@/constants/questionsList.constants';
 
 jest.mock('@/services/ApiService', ()=>({ fetch: jest.fn().mockReturnValue(Promise.resolve({data: []})) }));
 

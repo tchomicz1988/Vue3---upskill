@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import FormLabel from '@/components/form/FormLabel.vue';
-import FormInput from '@/components/form/FormInput.vue';
-import FormError from '@/components/form/FormError.vue';
-import { defineEmits, Ref } from 'vue';
-import { Question } from '@/interfaces/question.interface';
-import FormSelect from '@/components/form/FormSelect.vue';
-import { SelectOption } from '@/interfaces/form.interfaces';
+import FormLabel from '@/components/shared/FormLabel.vue';
+import FormInput from '@/components/shared/BaseFormInput.vue';
+import FormError from '@/components/shared/BaseFormError.vue';
+import {defineEmits, reactive, Ref} from 'vue';
+import { Question } from '@/types/question.interface';
+import FormSelect from '@/components/shared/FormSelect.vue';
+import { SelectOption } from '@/types/form.interfaces';
 import { enumToOptions } from '@/utils/form.utils';
-import { FILTERS_LEVEL_OPTIONS, FILTERS_TYPE_OPTIONS } from '@/components/questions-filters/questions-filters.model';
+import { FILTERS_LEVEL_OPTIONS, FILTERS_TYPE_OPTIONS } from '@/types/questions-filters.model';
 import useVuelidate, { Validation, ValidationArgs } from '@vuelidate/core'
 import { required, maxLength } from '@vuelidate/validators'
 
@@ -16,6 +16,7 @@ const props = defineProps<{
   form: Partial<Question>;
 }>();
 
+const questionsForm = reactive({ ...props.form })
 
 const emit = defineEmits<{
   (e: 'submit', form: Partial<Question>): void
@@ -31,7 +32,7 @@ const rules: ValidationArgs = {
   level: {required},
 }
 
-const $v: Ref<Validation> = useVuelidate(rules, props.form, {$autoDirty: true})
+const $v: Ref<Validation> = useVuelidate(rules, questionsForm, {$autoDirty: true})
 
 async function submit() {
 
@@ -41,7 +42,7 @@ async function submit() {
     return
   }
 
-  emit('submit', props.form);
+  emit('submit', questionsForm);
 }
 
 </script>
@@ -52,7 +53,7 @@ async function submit() {
     <FormLabel label="Question"
                :required="true">
       <FormInput type="text"
-                 v-model="form.question"
+                 v-model="questionsForm.question"
                  @blur="$v.question.$touch"/>
       <FormError :message="$v.question.$errors[0]?.$message"/>
     </FormLabel>
@@ -66,7 +67,7 @@ async function submit() {
       </FormLabel>
       <FormLabel label="Level"
                  :required="true">
-        <FormSelect v-model="form.type"
+        <FormSelect v-model="questionsForm.type"
                     :options="typeOptions"
                     @blur="$v.type.$touch"/>
         <FormError :message="$v.type.$errors[0]?.$message"/>

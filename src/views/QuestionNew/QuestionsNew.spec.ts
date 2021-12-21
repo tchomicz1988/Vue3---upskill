@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils'
-import QuestionNew from './QuestionNew.vue'
+import QuestionNew from './QuestionsNew.vue'
 import { createTestingPinia } from '@pinia/testing';
-import { Question } from '@/interfaces/question.interface';
+import { Question } from '@/types/question.interface';
 import { add } from '@/services/ApiService';
-import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
+import { QUESTIONS_ENDPOINTS } from '@/constants/questionsList.constants';
 import router from '@/router';
 import { useToastStore } from '@/stores/toasts';
 import exp from 'constants';

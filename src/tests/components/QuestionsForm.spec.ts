@@ -1,5 +1,5 @@
 import { flushPromises, shallowMount } from '@vue/test-utils';
-import QuestionForm from './QuestionForm.vue';
+import QuestionForm from '../../components/QuestionsForm.vue';
 
 describe('QuestionForm', () => {
   const wrapper = shallowMount(QuestionForm, {

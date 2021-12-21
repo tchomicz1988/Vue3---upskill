@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SelectOption } from '@/interfaces/form.interfaces';
+import { SelectOption } from '@/types/form.interfaces';
 
 defineProps<{
   options: SelectOption[];

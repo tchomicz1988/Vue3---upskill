@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { Question } from '@/interfaces/question.interface';
 import router from '@/router';
-defineProps<{
-  questions?: Question[];
-}>();
+import {useQuestions} from "@/composables/useQuestions";
+
+const { questions } = useQuestions();
 
 function editQuestion(id: string){
   router.push({name: 'edit', params: { id }})

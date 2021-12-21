@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import QuestionEdit from './QuestionEdit.vue'
+import QuestionEdit from './QuestionsEdit.vue'
 import { createTestingPinia } from '@pinia/testing';
 import { fetch, update } from '@/services/ApiService';
-import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
-import { Question } from '@/interfaces/question.interface';
+import { QUESTIONS_ENDPOINTS } from '@/constants/questionsList.constants';
+import { Question } from '@/types/question.interface';
 import router from '@/router';
 import { useToastStore } from '@/stores/toasts';
 

@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import TheQuestionsList from './TheQuestionsList.vue';
+import TheQuestionsList from '../../views/Home/partials/QuestionsList.vue';
 import router from '@/router';
 
 jest.mock('@/router', () => ({

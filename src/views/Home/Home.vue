@@ -1,27 +1,30 @@
 <script setup lang="ts">
-import TheQuestionsList from "@/components/questions-list/TheQuestionsList.vue";
-import { useQuestions } from "@/components/questions-list/useQuestions";
-import TheQuestionsFilters from "@/components/questions-filters/TheQuestionsFilters.vue";
+import QuestionsList from "@/views/Home/partials/QuestionsList.vue";
+import { useQuestions } from "@/composables/useQuestions";
+import QuestionsFilters from "@/views/Home/partials/QuestionsFilters.vue";
 import { fetch } from '@/services/ApiService';
-import { QUESTIONS_ENDPOINTS } from '@/components/questions-list/questionsList.constants';
-import { Question } from '@/interfaces/question.interface';
+import { QUESTIONS_ENDPOINTS } from '@/constants/questionsList.constants';
+import { Question } from '@/types/question.interface';
 import { identity, pickBy } from 'lodash-es';
+import {watchEffect} from "vue";
 
-const  { questions } = useQuestions();
+const { filters, updateQuestions } = useQuestions();
 
-updateList();
+watchEffect(() => {
+  updateList(filters)
+})
 
-function updateList(formData? : Partial<Question>) {
+function updateList(filters? : Partial<Question>) {
   const params = {
-    question_like: formData?.question,
-    type: formData?.type,
-    level: formData?.level,
+    question_like: filters?.question,
+    type: filters?.type,
+    level: filters?.level,
   }
 
   fetch(QUESTIONS_ENDPOINTS.ALL(), {
     params:  pickBy( params, identity),
   }).then((response: { data: any }) => {
-    questions.value = response.data;
+    updateQuestions(response.data);
   });
 }
 </script>
@@ -30,10 +33,10 @@ function updateList(formData? : Partial<Question>) {
   <h1>Questions List</h1>
   <main>
     <div class="Home-filters">
-      <TheQuestionsFilters @form="updateList"/>
+      <QuestionsFilters />
     </div>
     <div class="Home-list">
-      <TheQuestionsList :questions="questions" />
+      <QuestionsList />
     </div>
 
   </main>
