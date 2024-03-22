@@ -1,4 +1,4 @@
-# upSkill_Vue
+# Vue 3 
 
 Vue 3 in Vite.
 
